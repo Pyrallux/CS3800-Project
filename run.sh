@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
+
 ###############################################################################
 # C++ Section of the Testing Suite
 ###############################################################################
@@ -134,3 +135,71 @@ fi
 echo "  Execution Time with 1 Thread: ${singleCrdFiles}s"
 echo "  Execution Time with 16 Threads: ${multiCrdFiles}s"
 echo -e "  Time ${result} by multi-threading: ${color}${crdFilesDiff}${NC}s"
+
+
+###############################################################################
+# C++ Section of the Testing Suite
+###############################################################################
+echo "===================="
+echo -e "Running ${CYAN}C#${NC} Test Suite:"
+
+echo "Compiling Scripts..."
+mcs -out:singleSelSort.exe ./C#/SingleThreaded/selSort.cs
+mcs -out:multiSelSort.exe ./C#/MultiThreaded/selSort.cs
+
+# Selection Sort
+echo "--------------------"
+echo "Selection Sort:"
+singleSelSort=$(./singleSelSort.exe)
+multiSelSort=$(./multiSelSort.exe)
+selSortDiff=$(echo "$singleSelSort - $multiSelSort" | bc)
+if [ "$(echo "$selSortDiff > 0" | bc)" -eq 1 ]; then
+    color=$GREEN
+    result="saved"
+else 
+    color=$RED
+    result="lost"
+fi
+echo "  Execution Time with 1 Thread: ${singleSelSort}s"
+echo "  Execution Time with 16 Threads: ${multiSelSort}s"
+echo -e "  Time ${result} by multi-threading: ${color}${selSortDiff}${NC}s"
+rm "./singleSelSort.exe"
+rm "./multiSelSort.exe"
+
+# # Web Download
+# echo "--------------------"
+# echo "Web Download:"
+# singleWebDownload=$(./singleWebDownload.o)
+# multiWebDownload=$(./multiWebDownload.o)
+# webDownloadDiff=$(echo "$singleWebDownload - $multiWebDownload" | bc)
+# if [ "$(echo "$webDownloadDiff > 0" | bc)" -eq 1 ]; then
+#     color=$GREEN
+#     result="saved"
+# else 
+#     color=$RED
+#     result="lost"
+# fi
+# echo "  Execution Time with 1 Thread: ${singleWebDownload}s"
+# echo "  Execution Time with 16 Threads: ${multiWebDownload}s"
+# echo -e "  Time ${result} by multi-threading: ${color}${webDownloadDiff}${NC}s"
+# rm "./singleWebDownload.o"
+# rm "./multiWebDownload.o"
+
+# # Create, Read, and Delete Files
+# echo "--------------------"
+# echo "Create, Read, and Delete Files:"
+# singleCRD=$(./singleCRD.o)
+# multiCRD=$(./multiCRD.o)
+# CRDDiff=$(echo "$singleCRD - $multiCRD" | bc)
+# if [ "$(echo "$CRDDiff > 0" | bc)" -eq 1 ]; then
+#     color=$GREEN
+#     result="saved"
+# else 
+#     color=$RED
+#     result="lost"
+# fi
+# echo "  Execution Time with 1 Thread: ${singleCRD}s"
+# echo "  Execution Time with 16 Threads: ${multiCRD}s"
+# echo -e "  Time ${result} by multi-threading: ${color}${CRDDiff}${NC}s"
+# rm "./singleCRD.o"
+# rm "./multiCRD.o"
