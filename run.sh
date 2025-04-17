@@ -17,6 +17,8 @@ g++ ./C++/SingleThreaded/selSort.cpp -o singleSelSort.o
 g++ ./C++/MultiThreaded/selSort.cpp -o multiSelSort.o
 g++ ./C++/SingleThreaded/webDownload.cpp -o singleWebDownload.o -lcurl
 g++ ./C++/MultiThreaded/webDownload.cpp -o multiWebDownload.o -lcurl
+g++ ./C++/SingleThreaded/cudFiles.cpp -o singleCUD.o 
+g++ ./C++/MultiThreaded/cudFiles.cpp -o multiCUD.o 
 
 # Selection Sort
 echo "--------------------"
@@ -56,7 +58,24 @@ echo -e "  Time ${result} by multi-threading: ${color}${webDownloadDiff}${NC}s"
 rm "./singleWebDownload.o"
 rm "./multiWebDownload.o"
 
-# Writing to File
+# Create, Read, and Delete Files
+echo "--------------------"
+echo "Create, Read, and Delete Files:"
+singleCUD=$(./singleCUD.o)
+multiCUD=$(./multiCUD.o)
+CUDDiff=$(echo "$singleCUD - $multiCUD" | bc)
+if [ "$(echo "$CUDDiff > 0" | bc)" -eq 1 ]; then
+    color=$GREEN
+    result="saved"
+else 
+    color=$RED
+    result="lost"
+fi
+echo "  Execution Time with 1 Thread: ${singleCUD}s"
+echo "  Execution Time with 16 Threads: ${multiCUD}s"
+echo -e "  Time ${result} by multi-threading: ${color}${CUDDiff}${NC}s"
+rm "./singleCUD.o"
+rm "./multiCUD.o"
 
 
 
