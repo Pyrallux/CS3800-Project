@@ -117,3 +117,20 @@ fi
 echo "  Execution Time with 1 Thread: ${singleWebDownload}s"
 echo "  Execution Time with 16 Threads: ${multiWebDownload}s"
 echo -e "  Time ${result} by multi-threading: ${color}${webDownloadDiff}${NC}s"
+
+# CRD Files
+echo "--------------------"
+echo "Create, Read, and Delete Files:"
+singleCrdFiles=$(python3 ./Python/SingleThreaded/crdFiles.py)
+multiCrdFiles=$(python3 ./Python/MultiThreaded/crdFiles.py)
+crdFilesDiff=$(echo "$singleCrdFiles - $multiCrdFiles" | bc)
+if [ "$(echo "$crdFilesDiff > 0" | bc)" -eq 1 ]; then
+    color=$GREEN
+    result="saved"
+else 
+    color=$RED
+    result="lost"
+fi
+echo "  Execution Time with 1 Thread: ${singleCrdFiles}s"
+echo "  Execution Time with 16 Threads: ${multiCrdFiles}s"
+echo -e "  Time ${result} by multi-threading: ${color}${crdFilesDiff}${NC}s"
