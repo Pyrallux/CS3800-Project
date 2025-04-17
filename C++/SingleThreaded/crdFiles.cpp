@@ -39,7 +39,7 @@ int main() {
   std::srand(std::time(0));
   std::vector<int> RandList = generateRandList(16);
 
-  // Perform selection sorts and measure time
+  // Create, Read, and Delete Files + Time
   auto start = high_resolution_clock::now();
   for (int i = 0; i < RandList.size(); i++) {
     std::string name = "randomFile" + std::to_string(i) + ".txt";
