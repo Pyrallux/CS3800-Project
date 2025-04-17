@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Threading;
 using System.Net.Http;
 using System.Net;
 
@@ -34,11 +35,17 @@ public static string DownloadWebPage(string url)
   {
     // Setup
     Stopwatch stopwatch = new Stopwatch();
+    List<Thread> threads = new List<Thread>();
 
     // Perform selection sorts and measure time
     stopwatch.Start();
     for (int i=0; i < 16; i++) {
-      DownloadWebPage("https://google.com");
+        Thread th = new Thread(() => DownloadWebPage("https://google.com"));
+        th.Start();
+        threads.Add(th);
+    }
+    for (int i=0; i<16; i++){
+        threads[i].Join();
     }
     stopwatch.Stop();
     TimeSpan duration = stopwatch.Elapsed;

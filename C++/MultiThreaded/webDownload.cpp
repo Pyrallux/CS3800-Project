@@ -42,7 +42,7 @@ int main() {
   // Perform web requests and measures time
   auto start = high_resolution_clock::now();
   for (int i = 0; i < 16; i++) {
-    threads.push_back(std::thread(getRequest, "https://esports.mst.edu"));
+    threads.push_back(std::thread(getRequest, "https://google.com"));
   }
   for (auto &th : threads)
     th.join();

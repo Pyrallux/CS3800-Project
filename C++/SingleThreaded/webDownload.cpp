@@ -38,7 +38,7 @@ int main() {
   // Perform web requests and measure time
   auto start = high_resolution_clock::now();
   for (int i = 0; i < 16; i++) {
-    getRequest("https://esports.mst.edu");
+    getRequest("https://google.com");
   }
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop - start);
