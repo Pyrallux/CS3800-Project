@@ -10,4 +10,4 @@
 ## Running the Suite
 
 Note: All tests are designed to run on Linux, using a CPU with at least `16` threads/logical processors
-Run the command: `./run.sh`
+- Run the command: `./run.sh`
